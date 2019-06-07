@@ -2,11 +2,19 @@ import React,{Component}from 'react'
 import {Link} from 'react-router-dom'
 
 class ListBooks extends Component{
+	constructor(props){
+		super(props);
+		this.state ={query:""};
+		this.handleChange=this.handleChange.bind(this)
+	}
+	handleChange(book,e){
+		let newShelf = e.target.value
+		this.props.changeShelf(book,newShelf)
+	}
+
+
 	render(){
 		let books = this.props.books
-		let currentlyReading = books.filter((book)=>book.shelf=="currentlyReading")
-		let read = books.filter((book)=>book.shelf=="read")
-		let wantToRead = books.filter((book)=>book.shelf=="wantToRead")
 
 		return(
 			<div className="list-books">
@@ -19,19 +27,18 @@ class ListBooks extends Component{
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-
-                    {currentlyReading.map((book)=>(
-                    	<li>
+                    {books.filter((book)=>book.shelf==="currentlyReading").map((book)=>(
+                    	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
-                                <option value="none">None</option>
+                                <option value="none" selected>None</option>
                               </select>
                             </div>
                           </div>
@@ -47,18 +54,18 @@ class ListBooks extends Component{
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                    {wantToRead.map((book)=>(
-                    	<li>
+                    {books.filter((book)=>book.shelf==="wantToRead").map((book)=>(
+                    	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
-                                <option value="none">None</option>
+                                <option value="none" selected>None</option>
                               </select>
                             </div>
                           </div>
@@ -74,18 +81,18 @@ class ListBooks extends Component{
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      {read.map((book)=>(
-                    	<li>
+                      {books.filter((book)=>book.shelf==="read").map((book)=>(
+                    	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
-                                <option value="none">None</option>
+                                <option value="none" selected>None</option>
                               </select>
                             </div>
                           </div>
@@ -100,11 +107,12 @@ class ListBooks extends Component{
               </div>
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+
+              <Link to='/search'><button>Add a book</button></Link>
+
             </div>
           </div>
-
-			)
+		)
 	}
 }
 export default ListBooks
