@@ -40,8 +40,11 @@ class BooksApp extends React.Component {
   searchBooks(keyword){
     if(keyword){
     BooksAPI.search(keyword).then((response)=>{
-      this.setState({searchResult:response})
-      console.log(this.state.searchResult)
+      if(Array.isArray(response)){
+        this.setState({searchResult:response})
+      }else{
+        this.setState({searchResult:[]})
+      }
     })
     }
   }

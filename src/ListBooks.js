@@ -31,7 +31,7 @@ class ListBooks extends Component{
                     	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks?book.imageLinks.smallThumbnail:"https://books.google.com/googlebooks/images/no_cover_thumb.gif"})`}}></div>
                             <div className="book-shelf-changer">
                               <select defaultValue={book.shelf} onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
@@ -58,7 +58,7 @@ class ListBooks extends Component{
                     	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks?book.imageLinks.smallThumbnail:"https://books.google.com/googlebooks/images/no_cover_thumb.gif"})`}}></div>
                             <div className="book-shelf-changer">
                               <select defaultValue={book.shelf} onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
@@ -85,7 +85,7 @@ class ListBooks extends Component{
                     	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks?book.imageLinks.smallThumbnail:"https://books.google.com/googlebooks/images/no_cover_thumb.gif"})`}}></div>
                             <div className="book-shelf-changer">
                               <select defaultValue={book.shelf} onChange={(e)=>this.handleChange(book,e)}>
                                 <option value="move" disabled>Move to...</option>
