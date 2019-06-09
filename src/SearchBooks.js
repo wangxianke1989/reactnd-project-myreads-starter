@@ -9,7 +9,18 @@ class SearchBooks extends Component{
 	}
 
 	render(){
-		console.log(this.props.searchResult)
+
+		let storeBooks = this.props.books
+		let searchResult = this.props.searchResult
+
+		if(searchResult && storeBooks){
+			searchResult.map((book)=>
+				storeBooks.find(item=>item.id ===book.id)?book.shelf=storeBooks.find(item=>item.id ===book.id).shelf:book.shelf="none"
+			)
+		}else{
+			searchResult = [];
+		}
+
 		return(
 			<div className="search-books">
 	            <div className="search-books-bar">
@@ -32,19 +43,18 @@ class SearchBooks extends Component{
 	                	onChange = {(event)=>this.updateQuery(event.target.value)}
 
 	                />
-
 	              </div>
 	            </div>
 
 	            <div className="search-books-results">
 	              <ol className="books-grid">
-	              	{this.props.searchResult.map((book)=>(
+	              	{searchResult.map((book)=>(
                     	<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks?book.imageLinks.smallThumbnail:"https://books.google.com/googlebooks/images/no_cover_thumb.gif"})`}}></div>
                             <div className="book-shelf-changer">
-                              <select defaultValue="none" onChange={(e)=>this.props.changeShelf(book,e.target.value)}>
+                              <select defaultValue={book.shelf?book.shelf:"none"} onChange={(e)=>this.props.changeShelf(book,e.target.value)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
