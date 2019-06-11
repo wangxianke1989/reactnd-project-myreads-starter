@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router,Route } from 'react-router-dom'
+import { BrowserRouter as Router,Route,Switch } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks.js'
@@ -53,7 +53,7 @@ class BooksApp extends React.Component {
     return (
     <Router>
       <div className="app">
-
+      <Switch>
         <Route exact path="/search" render={()=>(
           <SearchBooks
               searchBooks={this.searchBooks}
@@ -62,14 +62,16 @@ class BooksApp extends React.Component {
               searchResult = {this.state.searchResult}
           />
         )}/>
-
         <Route exact path='/' render={()=>(
           <ListBooks
               books = {this.state.books}
               changeShelf={this.changeShelf}
           />
         )}/>
-
+        <Route render={()=>(
+          <div><p><b>Page not found,please check your url.</b></p></div>
+        )}/>
+      </Switch>
       </div>
     </Router>
     )
